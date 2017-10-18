@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="a">  
+        	父：<input v-model="msg" />  
+	        <aaa :msg="msg" @notick="notickEvent"></aaa>  
+	    </div>  
+	  
+	    <template id="b">  
+	        <div>  
+	            子：<input v-model="msgChild" />  
+	        </div>  
+	    </template>  
+	</body>
+	<script src="js/vue.js"></script>
+	<script>
+		// 子组件  
+	    Vue.component('aaa', {  
+	        template: '#b',  
+	        props: ['msg'],// 使子组件接受到父组件的msg属性  
+	        data: function() {  
+	            return {  
+	                msgChild: ''// 子组件msg的替代品(vue2中禁止子组件直接改变父组件状态，只能通过替代)  
+	            }  
+	        },  
+	        watch: {  
+	            msg: function(newVal, oldVal) {  
+	                this.msgChild = newVal;  
+	            },  
+	            msgChild: function(newVal, oldVal) {  
+	                this.$emit('notick', newVal);// 子组件msgChild改变时，触发notick事件  
+	            }  
+	        }  
+	    })  
+	  
+	    // 父组件  
+	    new Vue({  
+	        el: '#a',  
+	        data: {  
+	            msg: ''  
+	        },  
+	        methods: {  
+	            notickEvent: function(val) {  
+	                this.msg = val;  
+	            }  
+	        }  
+	    })  
+	</script>
+</html>
