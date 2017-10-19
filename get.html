@@ -7,9 +7,11 @@
 	<script src="js/vue.js"></script>
 	<script src="js/vue-resource.js"></script>
 	<body>
-		<!--本地请求文本数据-->
+		<!--像后端请求数据，并带有参数-->
 		<div id="box">
-			<input type="button" value="按钮" @click="get()"/>	
+			<input type="button" value="按钮get" @click="get()"/>
+			<input type="button" value="按钮post" @click="post()" />
+			<input type="button" value="jsonp请求" @click="jsonp()"/>
 		</div>
 	</body>
 	<script>
@@ -19,13 +21,32 @@
 				message:"你好！"
 			},
 			methods: {
-				get: function(){
-					this.$http.get("a.txt").then(function(res){
-						console.log(res.data);
+				get:function(){
+					//发送get求情
+					this.$http.get("get.php",{a:1,b:2}).then(function(res){
+						console.log(res.data)
 					},function(){
-						console.log("请求失败");
+						console.log("请求失败")
+					})
+				},
+				post:function(){
+					//发送post请求
+					this.$http.post("post.php",{a:1,b:2}).then(function(res){
+						console.log(res.data)
+					},function(){
+						console.log("请求失败")
+					})
+				},
+				//百度接口，wd:关键字，jsonp:cb   jsonp跨域
+				jsonp:function(){
+					this.$http.jsonp("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+					{wd:"酸奶"},{jsonp:"cb"}).then(function(result){
+						console.log(result.data.s)
+					},function(result){
+						console.log(result.status)
 					})
 				}
+				
 			}
 		})
 	</script>
