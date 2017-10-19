@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.js"></script>
+	<body>
+		<!--本地请求文本数据-->
+		<div id="box">
+			<input type="button" value="按钮" @click="get()"/>	
+		</div>
+	</body>
+	<script>
+		var vm = new Vue({
+			el: "#box",
+			data: {
+				message:"你好！"
+			},
+			methods: {
+				get: function(){
+					this.$http.get("a.txt").then(function(res){
+						console.log(res.data);
+					},function(){
+						console.log("请求失败");
+					})
+				}
+			}
+		})
+	</script>
+</html>
