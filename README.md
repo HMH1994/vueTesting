@@ -1,7 +1,7 @@
-# vueTesting<br />
-vue的一些小例子，用于入门，用于练习实践
+# vueTesting
+#vue的一些小例子，用于入门，用于练习实践
 
-由于本人在学习vue,所以会持续更新vue的小demo
+#由于本人在学习vue,所以会持续更新vue的小demo
 
 
 其中包含DEMO*****
